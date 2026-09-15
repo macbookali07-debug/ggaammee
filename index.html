@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[SYSTEM HACK] Жөнөкөй Сандар - Crypto Breaker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="digital-rain" id="digitalRain"></div>
+    <div class="scanline"></div>
+    <div class="container">
+        <header>
+            <h1>[CRYPTO BREAKER]</h1>
+            <p>Жөнөкөй сандарды колдонуп, шифрди чечиңиз...</p>
+        </header>
+
+        <div class="game-section">
+            <div class="safe-container safe-3d-container">
+                <div class="safe-door safe-door-3d" id="safeDoor">
+                    <div class="safe-display">
+                        <div class="target-number">
+                            <span class="label">>> TARGET:</span>
+                            <span class="number" id="targetNumber">12</span>
+                        </div>
+                        <div class="instruction">
+                            [ПРИОРИТЕТ]: Жөнөкөй сандардын көбөйтүндүсүн тап
+                        </div>
+                    </div>
+
+                    <div class="input-section">
+                        <div class="input-group">
+                            <input type="number" id="factor1" placeholder="PRIME_1" min="2">
+                            <span class="multiply">×</span>
+                            <input type="number" id="factor2" placeholder="PRIME_2" min="2">
+                            <span class="multiply">×</span>
+                            <input type="number" id="factor3" placeholder="PRIME_3" min="2">
+                        </div>
+                        <button class="btn-check" onclick="checkAnswer()">[АТАКА]</button>
+                    </div>
+
+                    <div class="result" id="result"></div>
+                </div>
+
+                <div class="safe-opened safe-content-3d" id="safeOpened" style="display: none;">
+                    <div class="success-message">
+                        <div class="lock-mechanism">🔓</div>
+                        <h2>[СЕЙФ АЧЫЛДЫ]</h2>
+                        <p id="hackText">SYSTEM HACKED...</p>
+                        <button class="btn-new" onclick="newGame()">[ЖАҢЫ МИССИЯ]</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>[INTEL] Жөнөкөй Сандар Жөнүндө</h2>
+            <div class="info-card">
+                <h3>[DEFINITION] Жөнөкөй сан деген эмне?</h3>
+                <p>Жөнөкөй сан (простое число) — бул 1ден чоң жана өзүнөн жана 1ден башка бөлүүчүсү жок сан. Мисалы: 2, 3, 5, 7, 11, 13...</p>
+            </div>
+
+            <div class="info-card">
+                <h3>[APPLICATIONS] Жашоодогу Колдонулушу</h3>
+                <ul>
+                    <li><strong>[CRYPTO] Криптография:</strong> Жөнөкөй сандар интернеттик коопсуздукта (HTTPS, SSL) кеңири колдонулат. Чоң жөнөкөй сандардын көбөйтүндүсүн түзүү оңой, бирок аны бөлүп таштоо кыйын.</li>
+                    <li><strong>[BANKING] Банк системалары:</strong> Карталардын PIN-коддору жана транзакцияларды шифрлөөдө жөнөкөй сандар колдонулат.</li>
+                    <li><strong>[COMPUTING] Компьютердүк илим:</strong> Алгоритмдерди оптималдаштырууда жана маалыматтарды сактоодо жөнөкөй сандар маанилүү.</li>
+                    <li><strong>[MUSIC] Музыка:</strong> Музыкалык интервалдарды эсептөөдө жөнөкөй сандар колдонулат.</li>
+                    <li><strong>[NATURE] Табиятта:</strong> Планеталардын орбиталары жана табияттагы көп процесстер жөнөкөй сандар менен байланыштуу.</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3>[FACTS] Кызыктуу Факттар</h3>
+                <ul>
+                    <li>Эң чоң белгилүү жөнөкөй сан: 2^82,589,933 − 1 (24 миллион цифрдан турат)</li>
+                    <li>Жөнөкөй сандардын саны чексиз</li>
+                    <li>2 — эң кичине жана бир гана жуп жөнөкөй сан</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,735 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background: #0a0a0a;
+    min-height: 100vh;
+    padding: 20px;
+    color: #00ff00;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Matrix rain effect background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 1px,
+            rgba(0, 255, 0, 0.03) 1px,
+            rgba(0, 255, 0, 0.03) 2px
+        );
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Glowing text effect */
+@keyframes glow {
+    0%, 100% {
+        text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00;
+    }
+    50% {
+        text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 40px #00ff00;
+    }
+}
+
+@keyframes glitch {
+    0%, 100% {
+        transform: translate(0);
+        filter: hue-rotate(0deg);
+    }
+    20% {
+        transform: translate(-2px, 2px);
+        filter: hue-rotate(90deg);
+    }
+    40% {
+        transform: translate(-2px, -2px);
+        filter: hue-rotate(180deg);
+    }
+    60% {
+        transform: translate(2px, 2px);
+        filter: hue-rotate(270deg);
+    }
+    80% {
+        transform: translate(2px, -2px);
+        filter: hue-rotate(360deg);
+    }
+}
+
+@keyframes scanline {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+@keyframes blink {
+    0%, 50% {
+        opacity: 1;
+    }
+    51%, 100% {
+        opacity: 0;
+    }
+}
+
+.scanline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(0, 255, 0, 0.1),
+        transparent
+    );
+    animation: scanline 3s linear infinite;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+header {
+    text-align: center;
+    color: #00ff00;
+    margin-bottom: 40px;
+    padding: 30px;
+    background: rgba(0, 20, 0, 0.8);
+    border: 2px solid #00ff00;
+    border-radius: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+header::before {
+    content: '>>> ACCESSING SYSTEM <<<';
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    font-size: 0.8em;
+    color: #00ff00;
+    animation: blink 1s infinite;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    animation: glow 2s ease-in-out infinite, headerGlitch 3s ease-in-out infinite;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    position: relative;
+}
+
+@keyframes headerGlitch {
+    0%, 90%, 100% {
+        transform: translate(0);
+        text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00;
+    }
+    92% {
+        transform: translate(-2px, 1px);
+        text-shadow: 2px 0 #ff0000, -2px 0 #00ffff;
+    }
+    94% {
+        transform: translate(2px, -1px);
+        text-shadow: -2px 0 #ff0000, 2px 0 #00ffff;
+    }
+    96% {
+        transform: translate(-1px, 2px);
+        text-shadow: 1px 0 #ff0000, -1px 0 #00ffff;
+    }
+    98% {
+        transform: translate(1px, -2px);
+        text-shadow: -1px 0 #ff0000, 1px 0 #00ffff;
+    }
+}
+
+header p {
+    font-size: 1.2em;
+    opacity: 0.9;
+    text-shadow: 0 0 10px #00ff00;
+}
+
+.game-section {
+    margin-bottom: 40px;
+}
+
+.safe-container {
+    background: rgba(0, 20, 0, 0.9);
+    border: 3px solid #00ff00;
+    border-radius: 0;
+    padding: 40px;
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.3), inset 0 0 30px rgba(0, 255, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.safe-container::before {
+    content: '⚠ ENCRYPTED SYSTEM ⚠';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #0a0a0a;
+    color: #00ff00;
+    padding: 5px 20px;
+    border: 2px solid #00ff00;
+    font-size: 0.9em;
+    animation: blink 1.5s infinite;
+}
+
+.safe-door {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Terminal typing effect */
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+.safe-display {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.target-number {
+    font-size: 3em;
+    font-weight: bold;
+    color: #00ff00;
+    margin-bottom: 15px;
+    animation: glow 1.5s ease-in-out infinite, numberPulse 2s ease-in-out infinite;
+    text-shadow: 0 0 20px #00ff00;
+    position: relative;
+}
+
+@keyframes numberPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.target-number .label {
+    font-size: 0.4em;
+    color: #00ff00;
+    margin-right: 10px;
+    text-transform: uppercase;
+}
+
+.instruction {
+    color: #00ff00;
+    font-size: 1.1em;
+    padding: 15px;
+    background: rgba(0, 50, 0, 0.5);
+    border: 1px solid #00ff00;
+    border-radius: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+.input-section {
+    margin-bottom: 20px;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.input-group input {
+    width: 100px;
+    padding: 15px;
+    font-size: 1.2em;
+    border: 2px solid #00ff00;
+    border-radius: 0;
+    text-align: center;
+    transition: all 0.3s ease;
+    background: rgba(0, 20, 0, 0.8);
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    text-transform: uppercase;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #00ff00;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    animation: glow 1s ease-in-out infinite, inputFocus 0.3s ease-out;
+}
+
+@keyframes inputFocus {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.multiply {
+    font-size: 2em;
+    color: #00ff00;
+    font-weight: bold;
+    text-shadow: 0 0 10px #00ff00;
+}
+
+.btn-check {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2em;
+    background: rgba(0, 50, 0, 0.8);
+    color: #00ff00;
+    border: 2px solid #00ff00;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: 'Courier New', monospace;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-check::before {
+    content: '█';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.btn-check:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+    background: rgba(0, 80, 0, 0.9);
+    animation: buttonPulse 0.5s ease-in-out infinite;
+}
+
+@keyframes buttonPulse {
+    0%, 100% {
+        box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 50px rgba(0, 255, 0, 0.8);
+    }
+}
+
+.btn-check:active {
+    transform: translateY(0);
+}
+
+.result {
+    text-align: center;
+    padding: 20px;
+    border-radius: 0;
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    display: none;
+    font-family: 'Courier New', monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.result.success {
+    display: block;
+    background: rgba(0, 50, 0, 0.8);
+    color: #00ff00;
+    border: 2px solid #00ff00;
+    animation: glow 1s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+}
+
+.result.error {
+    display: block;
+    background: rgba(50, 0, 0, 0.8);
+    color: #ff0000;
+    border: 2px solid #ff0000;
+    animation: glitch 0.3s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+}
+
+.safe-opened {
+    text-align: center;
+    animation: openSafe 0.8s ease-in-out;
+}
+
+@keyframes openSafe {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.success-message {
+    padding: 40px;
+    position: relative;
+}
+
+.success-message::before {
+    content: '████████████████████████████████████████';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #00ff00;
+    animation: scanline 2s linear infinite;
+}
+
+.success-message h2 {
+    color: #00ff00;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    animation: glow 1s ease-in-out infinite;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.success-message p {
+    font-size: 1.3em;
+    color: #00ff00;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px #00ff00;
+}
+
+/* Hacking animation for success */
+@keyframes hackSuccess {
+    0% {
+        content: 'ACCESSING...';
+    }
+    25% {
+        content: 'DECRYPTING...';
+    }
+    50% {
+        content: 'BYPASSING...';
+    }
+    75% {
+        content: 'UNLOCKING...';
+    }
+    100% {
+        content: 'ACCESS GRANTED';
+    }
+}
+
+/* 3D Safe Opening Animation */
+@keyframes safeDoorOpen {
+    0% {
+        transform: perspective(1000px) rotateY(0deg);
+        opacity: 1;
+    }
+    50% {
+        transform: perspective(1000px) rotateY(-45deg);
+        opacity: 0.8;
+    }
+    100% {
+        transform: perspective(1000px) rotateY(-90deg);
+        opacity: 0;
+    }
+}
+
+@keyframes safeReveal {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Safe 3D Container */
+.safe-3d-container {
+    perspective: 1000px;
+    position: relative;
+}
+
+.safe-door-3d {
+    transform-style: preserve-3d;
+    transition: transform 1s ease-in-out;
+}
+
+.safe-door-3d.opening {
+    animation: safeDoorOpen 1s ease-in-out forwards;
+}
+
+.safe-content-3d {
+    transform-style: preserve-3d;
+    opacity: 0;
+    transform: translateZ(-50px);
+}
+
+.safe-content-3d.revealed {
+    animation: safeReveal 0.5s ease-out 0.5s forwards;
+}
+
+/* Lock Mechanism Animation */
+@keyframes unlockMechanism {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-15deg);
+    }
+    50% {
+        transform: rotate(15deg);
+    }
+    75% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.lock-mechanism {
+    animation: unlockMechanism 0.5s ease-in-out;
+}
+
+/* Digital Rain Effect */
+@keyframes digitalRain {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+
+.digital-rain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.rain-drop {
+    position: absolute;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    animation: digitalRain linear infinite;
+    text-shadow: 0 0 5px #00ff00;
+}
+
+.btn-new {
+    padding: 15px 40px;
+    font-size: 1.2em;
+    background: rgba(0, 50, 0, 0.8);
+    color: #00ff00;
+    border: 2px solid #00ff00;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: 'Courier New', monospace;
+}
+
+.btn-new:hover {
+    background: rgba(0, 80, 0, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+    animation: glow 1s ease-in-out infinite;
+}
+
+.info-section {
+    background: rgba(0, 20, 0, 0.9);
+    border: 2px solid #00ff00;
+    border-radius: 0;
+    padding: 40px;
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+    position: relative;
+}
+
+.info-section::before {
+    content: '/// CLASSIFIED DATA ///';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #0a0a0a;
+    color: #00ff00;
+    padding: 5px 20px;
+    border: 2px solid #00ff00;
+    font-size: 0.9em;
+    animation: blink 2s infinite;
+}
+
+.info-section h2 {
+    color: #00ff00;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 2em;
+    animation: glow 2s ease-in-out infinite;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.info-card {
+    background: rgba(0, 30, 0, 0.8);
+    padding: 25px;
+    border-radius: 0;
+    margin-bottom: 20px;
+    border-left: 4px solid #00ff00;
+    border-top: 1px solid #00ff00;
+    border-bottom: 1px solid #00ff00;
+    position: relative;
+}
+
+.info-card::before {
+    content: '>';
+    position: absolute;
+    left: -15px;
+    top: 25px;
+    color: #00ff00;
+    font-size: 1.5em;
+    animation: blink 1s infinite;
+}
+
+.info-card h3 {
+    color: #00ff00;
+    margin-bottom: 15px;
+    font-size: 1.4em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px #00ff00;
+}
+
+.info-card p {
+    line-height: 1.6;
+    color: #00ff00;
+    margin-bottom: 15px;
+    opacity: 0.9;
+}
+
+.info-card ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.info-card li {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+    line-height: 1.6;
+    color: #00ff00;
+    opacity: 0.9;
+}
+
+.info-card li::before {
+    content: '>> ';
+    color: #00ff00;
+    font-weight: bold;
+}
+
+.info-card li:last-child {
+    border-bottom: none;
+}
+
+.info-card strong {
+    color: #00ff00;
+    text-shadow: 0 0 5px #00ff00;
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    .safe-container {
+        padding: 20px;
+    }
+
+    .target-number {
+        font-size: 2em;
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
+
+    .input-group input {
+        width: 100%;
+    }
+
+    .multiply {
+        transform: rotate(90deg);
+    }
+
+    .info-section {
+        padding: 20px;
+    }
+}
