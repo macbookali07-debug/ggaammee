@@ -149,7 +149,7 @@ function checkAnswer() {
     if (isNaN(factor1) || isNaN(factor2) || factor1 < 2 || factor2 < 2) {
         result.style.display = 'block';
         result.className = 'result error';
-        result.textContent = '[ОШИБКА] Эки жөнөкөй сан керек!';
+        result.textContent = '[ОШИБКА] Введите минимум два числа!';
         return;
     }
     
@@ -165,7 +165,7 @@ function checkAnswer() {
     if (!allPrimes) {
         result.style.display = 'block';
         result.className = 'result error';
-        result.textContent = '[ACCESS DENIED] Жөнөкөй сандар эмес!';
+        result.textContent = '[ACCESS DENIED] Неверный код!';
         return;
     }
     
